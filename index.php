@@ -21,14 +21,15 @@
 
     <script type="text/javascript">
         $('#name').focus();
-
+        //this绑定
         function Module_Login() {
+            //定义绑定变量
             this.CtrlNameID = tone.sys.guid();
             this.CtrlPswID = tone.sys.guid();
             this.AttrView = ko.observable(0);
             this.AttrErr = ko.observable();
             this.AttrAutoLogin = ko.observable(false);
-
+            
             this.FuncLogin = function() {
                 var user = $('#' + this.CtrlNameID).val();
                 var psw = $('#' + this.CtrlPswID).val();
