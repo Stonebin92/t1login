@@ -1,0 +1,312 @@
+body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite,code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul,li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details,embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: none;
+	vertical-align: baseline;
+	font-family: '微软雅黑';
+}
+
+.color-grey {
+	color: #888!important;
+}
+.left {
+	float: left;
+}
+.right {
+	float: right;
+}
+.overflow-h {
+	overflow: hidden;
+}
+.reg-code-width {
+	width: 50%;
+}
+
+a {
+	color: #888;
+	text-decoration: none;
+}
+a:hover {
+	color: #59c1df;
+}
+
+/*
+*公共样式设置
+*结束
+*/
+
+
+
+
+#guui {
+	/* width: 360px; */
+}
+
+
+/*
+*header样式设置
+*
+*/
+header {
+	width: 100%;
+	margin: 0 auto;
+	box-shadow: 0 1px 8px #ddd;
+	height: 64px;
+	position: relative;
+}
+header #logo {
+	position: absolute;
+	left: 50px;
+	width: 140px;
+	height: 64px;
+}
+header #logo a {
+	height: 64px;
+	display: block;
+	line-height: 64px;
+}
+header #logo a img{
+	padding: 7px 0;
+}
+/*header样式设置结束*/
+
+
+
+
+/*
+*内容样式设置
+*
+*/
+
+
+div.main-content {
+	width: 886px;
+	margin: 0 auto;
+	margin-top: 45px;
+	/*padding-bottom: 65px;*/
+	height: 640px;
+}
+
+
+/*注册操作提示样式设置*/
+.main-content h2 {
+	font-weight: 500;
+	font-size: 24px;
+}
+
+.main-content .register-step {
+	margin-top: 40px;
+	text-align: center;
+}
+.main-content .register-step .register-step-sub {
+	width: 50%;
+	position: relative;
+	margin-bottom: 50px;
+}
+
+.register-step .stepover b.stepOf {
+	background: #f99904;
+}
+
+.register-step b.stepOf {
+	padding: 2px 6px;
+	font-family: arial;
+	border-radius: 45px;
+	background: #ddd;
+	color: #fff;
+}
+.register-step span.detail-message {
+	margin-top: 5px;
+	display: block;
+	color: #888!important;
+	font-size: 12px;
+}
+.register-step span.line-tip {
+	position: absolute;
+	top: 9px;
+	left: 0;
+	width: 98%;
+	height: 3px;
+	background: #ddd;
+	z-index: -1;
+}
+.register-step .stepover span.line-tip {
+	background: #f99904;
+}
+.main-content .register-step .register-step-login {
+	width: 50%;
+	position: relative;
+	margin-bottom: 50px;
+}
+
+/*注册操作提示样式设置结束*/
+
+
+/*填写注册信息样式*/
+#register-edit {
+	width: 360px;
+}
+.regInput {
+	height: 30px;
+	margin-bottom: 28px;
+}
+.regInput div.input {
+	border: 2px solid #d2d2d2;
+	height: 34px;
+	border-radius: 4px;
+} 
+.regInput input {
+	border: 0px;
+	width: 100%;
+	height: 32px;
+	outline: none;
+	margin-bottom: 3px;
+}
+
+.regInput span {
+	display: none;
+	font-size: 12px;
+}
+
+.borderFocus div.input {
+	border: 2px solid #59c1df;
+}
+.borderFocus .input span.wrong {
+	display: none;
+}
+.borderFocus .input span.tip {
+	display: block;
+	color: #59c1df;
+}
+
+.borderBlur div.input {
+	border: 2px solid #faad36;
+}
+.borderBlur .input span.tip {
+	display: none;
+}
+.borderBlur .input span.wrong {
+	display: block;
+	color: #faad36;
+}
+
+#reg-code {
+	font-size: 12px;
+}
+.code-img {
+	width: 106px;
+	height: 36px;
+	background-color: #f0f0f0;
+	margin: 0 8px;
+}
+
+.choose-check {
+	font-size: 12px;
+}
+.choose-check input#beAgree {
+	vertical-align: -2px;
+}
+.choose-check a:hover {
+	color: #59c1df;
+	text-decoration: underline;
+}
+
+
+#register-edit #login-btn {
+	width: 190px;
+	height: 37px;
+	background-color: #d2d2d2;
+	color: #fff;
+	border: none;
+	margin: 0 auto;
+	display: block;
+	font-size: 18px;
+	border-radius: 45px;
+	margin-top: 10px;
+}
+/*填写注册信息样式结束*/
+
+/*注册成功信息样式*/
+#register-success {
+	width: 400px;
+	text-align: center;
+	height: 356px;
+	/* background: url(img/register.png) top left no-repeat; */
+}
+#register-success h2 {
+	margin-top: 35px;
+	padding-bottom: 30px;
+}
+#register-success span {
+	color: #888;
+	font-size: 15px;
+}
+#register-success b {
+	color: #f99904;
+	font-size: 15px;
+}
+#register-success #login-btn {
+	width: 190px;
+	height: 37px;
+	background-color: #59c1df;
+	color: #fff;
+	border: none;
+	margin: 0 auto;
+	display: block;
+	font-size: 18px;
+	border-radius: 45px;
+	margin-top: 10px;
+	cursor: pointer;
+	margin-top: 20px;
+}
+/*注册成功信息样式结束*/
+
+/*成功后右边样式设置*/
+div.app-link {
+	text-align: center;
+}
+.app-link a.app {
+	font-size: 12px;
+	margin: 0 20px;
+}
+/*成功后右边样式设置结束*/
+
+/*内容样式设置结束*/
+
+
+
+/*
+*底部样式设置
+*
+*/
+footer {
+	width: 100%;
+	background: #23282c;
+	color: grey;
+	height: 50px;
+	padding: 0 50px;
+	line-height: 50px;
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	font-size: 12px;
+}
+footer .msg-link {
+	width: 168px;
+}
+footer .footer-text {
+	/*text-align: center;*/
+	overflow: hidden;
+	width: 600px;
+}
+footer a {
+	width: 40px;
+	height: 40px;
+}
+footer img {
+	width: 40px;
+	height: 40px;
+}
+
+/*底部样式设置结束*/
