@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>login</title>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+<div id="guui">
+	<header>
+		<div id="logo" class="left">
+			<a href="javascript:void(0);">
+				<img src="img/logo-icon.png" title="云助手">
+			</a>
+		</div>
+	</header>
+	<div class="main-content">
+		<h2>注册新用户</h2>
+		<!-- 注册步骤提示 -->
+		<div class="register-step">
+			<div class="register-step-sub left stepover" data-switch="1">
+				<b class="stepOf">1</b><br>
+				<span class="detail-message">提交注册信息</span>
+				<span class="line-tip"></span>
+			</div>
+			<div class="register-step-login right" data-switch="2">
+				<b class="stepOf">2</b><br>
+				<span class="detail-message">注册成功，登陆云助手</span>
+				<span class="line-tip"></span>
+			</div>
+		</div>
+		<div class="left">
+			<!-- 填写注册信息 -->
+			<div id="register-edit" data-bind="visible: AttrRegView() == 0">
+				<!-- 昵称填写 -->
+				<div class="regInput" id="reInput">
+					<div class="input">
+						<input type="text" data-bind="event: {focus: function(m, e){this.FuncSetTip(m, e, 1)}, blur: FuncCheckNName}, textInput: AttrRegisterUser().nickName" name="nickName" placeholder="昵称" id="nickName" onbeforepaste="clipboardData.setData('text', clipboardData.getData('text').replace(/[\d]/g, ''))">
+						<span data-bind="visible: AttrTipView()==1" class="tip">请输入昵称</span>
+						<span data-bind="visible: AttrErrView()==1" class="wrong">昵称为必须项</span>
+					</div>
+				</div>
+				<!-- 真实姓名填写 -->
+				<div class="regInput" id="reInput">
+					<div class="input">
+						<input type="text" data-bind="event: {focus: function(m, e){this.FuncSetTip(m, e, 2)}, blur: FuncCheckRName}, textInput: AttrRegisterUser().realName" name="realName" placeholder="真实姓名" onbeforepaste="clipboardData.setData('text', clipboardData.getData('text').replace(/[\d]/g, ''))">
+						<span data-bind="visible: AttrTipView() == 2" class="tip">请输入真实姓名</span>
+						<span data-bind="visible: AttrErrView() == 2" class="wrong">真实姓名为必须项</span>
+					</div>
+				</div>
+				<!-- 密码填写 -->
+				<div class="regInput" id="reInput">
+					<div class="input">
+						<input type="password" data-bind="event: {focus: function(m, e){this.FuncSetTip(m, e, 3)}, blur: FuncCheckPws}, textInput: AttrRegisterUser().passWord" name='passWord' placeholder="密码" maxlength="512">
+						<span data-bind="visible: AttrTipView() == 3" class="tip">请输入6-20位密码，区分大小写</span>
+						<span data-bind="visible: AttrErrView() == 3" class="wrong">请输入至少6位数密码</span>
+					</div>
+				</div>
+				<!-- 确认密码 -->
+				<div class="regInput" id="reInput">
+					<div class="input">
+						<input type="password" data-bind="event: {focus: function(m, e){this.FuncSetTip(m, e, 4)}, blur: FuncCheckConfirm}, textInput: AttrRegisterUser().pwdConfirm" name="pwdConfirm" placeholder="确认密码" maxlength="512">
+						<span data-bind="visible: AttrTipView() == 4" class="tip">请再次输入密码</span>
+						<span data-bind="visible: AttrErrView() == 4" class="wrong">两次输入的密码不一致</span>
+					</div>
+				</div>
+				<!-- 邮箱地址填写 -->
+				<div class="regInput" id="reInput">
+					<div class="input">
+						<input type="email" data-bind="event: {focus: function(m, e){this.FuncSetTip(m, e, 5)}, blur: FuncCheckMail}, textInput: AttrRegisterUser().mailAddress" name="mailAddress" placeholder="邮箱地址">
+						<span data-bind="visible: AttrTipView() == 5" class="tip">请输入常用邮箱地址</span>
+						<span data-bind="visible: AttrErrView() == 5, text: AttrMailErr" class="wrong">邮箱不能为空</span>
+					</div>
+				</div>
+				<!-- 验证码填写 -->
+				<div id="reg-code">
+					<div class="right color-grey">
+						<span>点左边图片</span><br>
+						<span>更换验证码</span>
+					</div>
+					<img data-bind="click: ChangeVerifyCode" class="code-img right" src="http://api.t1yun.com/V2.3/sys/action/verifycode" alt="验证码">
+					<!-- 填写验证码 -->
+					<div id="reInput" class="regInput reg-code-width">
+						<div class="input">
+							<input type="text" name="codeSub" placeholder="请输入验证码" data-bind="event: {focus: function(m, e){this.FuncSetTip(m, e, 6)}, blur: FuncCheckCode}, textInput: AttrRegisterUser().codeSub" maxlength="5">
+							<span data-bind="visible: AttrTipView() == 6" class="tip">请输入验证码信息</span>
+							<span data-bind="visible: AttrErrView() == 6" class="wrong">验证码不正确</span>
+						</div>
+					</div>
+				</div>
+				<!-- 勾选隐私政策 -->
+				<div class="choose-check color-grey">
+					<input type="checkbox" id="beAgree" data-bind="checked: AttrIsAgree, event: {change: FuncIsAgree}">
+					<span>我同意<a href="javascript:void(0);">隐私政策</a></span>
+				</div>
+				<!-- 注册按钮 -->
+				<button data-bind="click: PostUserData, enable: AttrIsPass, style: {background: AttrIsPass() ? '#2fb2d7' : '#ccc'}" type="button" disabled="disabled" id="login-btn">注 　册</button>
+			</div>
+			<!-- 注册成功 -->
+			<div id="register-success" data-bind="visible: AttrRegView() == 1">
+				<h2>恭喜注册成功</h2>
+				<span>欢迎使用云助手，系统自动为您获取</span><br>
+				<span>云助手账号：</span>
+				<b class="register-account">95668</b><br>
+				<a href="javascript:void(0);"><button id="login-btn">立即登录</button></a>
+			</div>
+		</div>
+		<div class="right">
+			<!-- 大图 -->
+			<div>
+				<img src="img/login-img.png" alt="">
+			</div>
+			<!-- app客户端链接 -->
+			<div class="app-link">
+				<a href="javascript:void(0);" class="app ios">IOS客户端</a>
+				<a href="javascript:void(0);" class="app android">Android客户端</a>
+				<a href="javascript:void(0);" class="app windows">Windows客户端</a>
+			</div>
+		</div>
+	</div>
+	<footer>
+		<div class="right msg-link">
+			<a href="javascript:void(0);" class="qq-icon">
+				<img src="img/qq-icon.png" title="qq在线咨询">
+			</a>
+			<a href="javascript:void(0);" class="mail-icon">
+				<img src="img/mail-icon.png" title="邮箱">
+			</a>
+		</div>
+		<div class="footer-text">
+			<span>泰恪网络</span>
+			<span class="ml10">Copyright©2016 Tecul. All Rights Reserved. 粤ICP备13079762号－1</span>
+		</div>
+	</footer>
+</div>
+</body>
+	<script type="text/javascript" src="./static/jquery-1.8.0.min.js"></script>
+	<script type="text/javascript" src="./static/jquery-ui-1.8.16.custom.min.js"></script>
+	<script type="text/javascript" src="./static/knockout-3.3.0.js"></script>
+	<script type="text/javascript" src="./static/jquery-tecul-lib.js"></script>
+	<script type="text/javascript" src="./static/jquery-tecul-ui.js"></script>
+	<script type="text/javascript" src="./static/md5.js"></script>
+	<script type="text/javascript">
+		var Ctrl = $('#guui');
+		$('#nickName').focus();
+		function Model_Login () {
+			this.AttrRegisterUser = ko.observable({
+				realName : '',
+				nickName : '',
+				passWord : '',
+				pwdConfirm : '',
+				mailAddress : ''
+			});
+
+			this.AttrRegView = ko.observable(0);
+			this.AttrGetId = ko.observable('');
+			this.AttrTipView = ko.observable(0); 
+			this.AttrErrView = ko.observable(0); 
+			this.AttrIsAgree = ko.observable(false); 
+			this.AttrIsPass = ko.observable(false); 
+			this.AttrMailErr = ko.observable('');
+
+			this.AttrIsName=ko.observable(false);
+			this.AttrIsCode=ko.observable(false);
+			this.AttrIsMail=ko.observable(false);
+			this.AttrIsPsw =ko.observable(false);
+			this.AttrIsCfw =ko.observable(false);
+
+			/*聚焦事件*/
+			this.FuncSetTip = function  (m, e, i) {
+				this.AttrTipView(i); //显示提示信息
+				$('#reInput').removeClass('borderFocus');
+				$(e.target).parent().parent().removeClass('borderBlur');
+				$(e.target).parent().parent().addClass('borderFocus');
+			};
+
+			/*昵称校验*/
+			this.FuncCheckNName = function  (m,e) {
+				if (this.AttrRegisterUser().nickName != '') {
+					//昵称不为空则执行
+					$('input[name=nickName]').parent().parent().removeClass('borderBlur borderFocus');
+					this.FuncSetErr(m, e, 0); //隐藏提示信息
+					this.AttrIsName(true);
+				} else {
+					$('input[name=nickName]').parent().parent().addClass('borderBlur');
+					this.FuncSetErr(m, e, 1);
+					this.AttrIsName(false);
+				}
+				this.FuncCheckIsPass();
+			};
+
+			this.FuncSetErr = function  (m, e, i) {
+				this.AttrErrView(i);
+			}
+
+			/*真实姓名校验*/
+			this.FuncCheckRName = function (m, e) {
+				if (this.AttrRegisterUser().realName != '') {
+					$('input[name=realName]').parent().parent().removeClass('borderBlur borderFocus');
+					this.FuncSetErr(m, e, 0); //隐藏提示信息
+					this.AttrIsName(true);
+				} else {
+					$('input[name=realName]').parent().parent().addClass('borderBlur');		
+					this.FuncSetErr(m, e, 2);
+					this.AttrIsName(false);
+				}
+				this.FuncCheckIsPass();
+			}
+
+			/*密码输入校验 */
+			this.FuncCheckPws = function  (m, e) {
+				if (this.AttrRegisterUser().passWord != '' && this.AttrRegisterUser().passWord.length >= 6) {
+					$('input[name=passWord]').parent().parent().removeClass('borderBlur borderFocus');
+					this.FuncSetErr(m, e, 0); //隐藏提示信息
+					this.AttrIsPsw(true);
+					/*if (this.AttrRegisterUser().pwdConfirm != '') {
+						$('input[name=passWord]').parent().parent().removeClass('borderBlur borderFocus');
+						this.FuncSetErr(m, e, 3); 
+						this.AttrIsPsw(false);
+					}
+					return;*/
+				} else {
+					$('input[name=passWord]').parent().parent().addClass('borderBlur');
+					this.FuncSetErr(m, e, 3);
+					this.AttrIsPsw(false);
+				}
+				this.FuncCheckIsPass();
+			}
+
+			/*确认密码*/
+			this.FuncCheckConfirm = function  (m, e) {
+				if (this.AttrRegisterUser().pwdConfirm != '' && this.AttrRegisterUser().pwdConfirm.length == this.AttrRegisterUser().passWord.length) {
+					if (this.AttrRegisterUser().passWord == this.AttrRegisterUser().pwdConfirm) {
+						$('input[name=pwdConfirm]').parent().parent().removeClass('borderBlur borderFocus');
+						this.FuncSetErr(m, e, 0); //隐藏提示信息
+						this.AttrIsCfw(true);
+					} else {
+						$('input[name=pwdConfirm]').parent().parent().addClass('borderBlur');
+						this.FuncSetErr(m, e, 4); 
+						this.AttrIsCfw(false);
+					}
+				} else {
+					$('input[name=pwdConfirm]').parent().parent().addClass('borderBlur');
+					this.FuncSetErr(m, e, 4); 
+					this.AttrIsPsw(false);
+				}
+				this.FuncCheckIsPass();
+			}
+
+			/*邮箱地址输入*/
+			this.FuncCheckMail = function  (m, e) {
+				if (this.AttrRegisterUser().mailAddress != '') {
+					if (this.AttrRegisterUser().mailAddress.match(/^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/)) {
+							$('input[name=mailAddress]').parent().parent().removeClass('borderBlur borderFocus');
+							this.FuncSetErr(m, e, 0); //隐藏提示信息
+							this.AttrIsMail(true);
+					} else {
+						this.AttrMailErr('邮箱的格式不符合要求');
+						$('input[name=mailAddress]').parent().parent().addClass('borderBlur');
+						this.FuncSetErr(m, e, 5); 
+						this.AttrIsMail(false);
+					}
+				} else {
+					this.AttrMailErr('邮箱不能为空');
+					$('input[name=mailAddress]').parent().parent().addClass('borderBlur');
+					this.FuncSetErr(m, e, 5); 
+					this.AttrIsMail(false);
+				}
+				this.FuncCheckIsPass();
+			}
+
+			/*验证码输入*/
+			this.FuncCheckCode = function (m ,e) {
+				if (this.AttrRegisterUser().codeSub != '' /*&& this.AttrRegisterUser().codeSub.length > 3*/){
+					$('input[name=codeSub]').parent().parent().removeClass('borderBlur borderFocus');
+					this.FuncSetErr(m, e, 0); //隐藏提示信息
+					this.AttrIsCode(true);
+					this.FuncCheckIsPass();
+					return
+				} else {
+					$('input[name=codeSub]').parent().parent().addClass('borderBlur');
+					this.FuncSetErr(m, e, 6); 
+					this.AttrIsCode(false);
+				}
+				this.FuncCheckIsPass();
+			}
+			/*刷新验证码*/
+			this.FuncReflashCode = function () {
+				$('#code-img').attr('src', '/V2.3/sys/action/verifycode?r=' + Math.random());
+			}
+			this.ChangeVerifyCode = function () {
+				this.FuncReflashCode();
+			}.bind(this);
+
+			/*勾选隐私政策*/
+			this.FuncIsAgree = function (m, e) {
+				$('#reInput').removeClass('borderBlur borderFocus');
+				this.AttrIsAgree($(e.target).prop('checked'));
+				this.FuncCheckIsPass();
+			}
+			/*通过判定*/
+			this.FuncCheckIsPass = function () {
+				if (this.AttrIsName() && this.AttrIsPsw() && this.AttrIsMail() && this.AttrIsAgree() && this.AttrIsCode()) {
+					this.AttrIsPass(true);
+				} else {
+					this.AttrIsPass(false);
+				}
+			}
+
+			/*提交数据*/
+			this.PostUserData1 = function (m ,e) {
+				var params = '';
+				params += '昵称：' + $('#nickName').val();
+				params += ' 真实姓名' + $('input[name="realName"]').val();
+				params += ' 密码：' + $('input[name="passWord"]').val();
+				params += ' 邮箱地址：' + $('input[name="mailAddress"]').val();
+				alert('你提交的数据是：' + params);
+			}
+
+			this.PostUserData = function (m, e) {
+				$('[data-switch=1]').removeClass('stepover');
+				$('[data-switch=2]').addClass('stepover');
+				this.AttrRegView(1);
+			}
+
+
+
+		}
+
+		var model_Login = new Model_Login();
+		// Model_Login.Bindings($('body')[0]);
+		ko.applyBindings(Model_Login());
+		$('#nickName').focus();
+	</script>
+</html>
